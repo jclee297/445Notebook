@@ -64,3 +64,41 @@ Is Drain resistor necessary?
 16550 3.7V Li-ion battery? Has 2500mAh but can't step down to 3.3 to power ESP32 due to dropout voltage being about 2 volts. Can't power ES32-CAM since many forum posts saying 3.3V power not recommended and buggy. ESP32-CAM will have to use 5V
 
 ## March 13
+
+Did research for current detection via a BJT circuit. Seemed a little confusing so explored other methods.
+
+![image](https://github.com/jclee297/ECE445/assets/168769106/d47f8f45-6471-4700-94c2-f278f9ebac5a)
+
+According to ESP32-S3-WROOM datasheet, VIH has to be above 0.75 x VDD and VIL must be below 0.25 x VDD
+
+![image](https://github.com/jclee297/ECE445/assets/168769106/19afc6d2-2c5f-4033-9e57-9f9fcf5b9f56)
+
+Depending on the opamp, both cases (switch open/closed) will cause a  GPIO pin to read as high. Need to change circuit/opamp so an open circuit actually causes a low GPIO pin input.
+
+Open circuit detection can also be done without the opamp by using the microcontroller GPIO pins to act as a detector of voltage, and have the wire running through the bike chain powered by a constant voltage that the microcontroller can handle and read as high. Voltage regulator output of 3.3V should work?
+
+Spent time designing PCB in time for second order. Purposely making our first rendition larger to give myself enough space to place traces and components from our block diagram. (First time designing a PCB at all)
+
+## March 14
+
+Voltage regulator circuit and IO pins placed on the schematic. Time spent trying to understand the method for uploading code to the microcontroller, and how we should connect FTDI USB to the PCB.
+
+## March 15
+
+Noted the surface mount components needed so far for the PCB.
+
+## March 19
+
+PCB schematic finished. Had to find ESP32 footprint online and edit the vias to be the right size
+
+## March 20
+
+Took the time to order all the parts needed for the first rendition and should still have enough for the second and possibly third, depending on how many PCBs we solder and test
+
+## April 5
+
+Finally got PCB. Worked on soldering the components, but realized I forgot to order BJTs and switches. 1uF capacitors were missing so had to reorder anyways. Tested the output of the voltage regulator and read 2.3V. Tried changing resistors with other values to get different voltage outputs, but after a couple hours realized that I originally had the wrong value because the resistors were in the wrong spots. 3.3K goes on the bottom and 2.2K goes on the top. While testing, learned that to read the right output, the voltage regulator needs to have a load resistor, otherwise the output is higher (~5V).
+
+## April 12
+
+Got the missing componenets and soldered it together. Also got the microcontroller so soldered the first PCB. Tested the voltage regulator output and realized 
