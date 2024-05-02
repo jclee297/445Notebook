@@ -12,15 +12,16 @@ Finding ratio for 5V output
 
 **Block Diagram Q&A**
 1. What's powering the main microcontroller?
+
 LM317 Regulator
-2. What battery should we use?
+3. What battery should we use?
 9V for now
-3. What's powering the ESP32-CAM
+4. What's powering the ESP32-CAM
 Likely also a 9V battery stepped down to 5V via LM317
-4. How much power does the ESP32-CAM need?
+5. How much power does the ESP32-CAM need?
 5V 2A according to datasheet
-5. Allowable voltage for alarm speakers?
+6. Allowable voltage for alarm speakers?
 Up to 24V
-6. How does ESP32-CAM connect to the actual camera?
+7. How does ESP32-CAM connect to the actual camera?
 Actual camera is OV2640, connection is built onto ESP32-CAM. Datasheet calls for 5V and 180mA
 [datasheet](https://www.handsontec.com/dataspecs/module/ESP32-CAM.pdf)
