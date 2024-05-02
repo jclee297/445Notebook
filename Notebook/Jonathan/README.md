@@ -36,3 +36,14 @@ Finding ratio for 5V output
 
   Actual camera is OV2640, connection is built onto ESP32-CAM. Datasheet calls for 5V and 180mA
   [datasheet](https://www.handsontec.com/dataspecs/module/ESP32-CAM.pdf)
+
+9. How will the microcontroller communicate with the ESP32-CAM?
+
+    ESP32-S3-WROOM can use Bluetooth 5
+
+
+## Febuary 18
+
+New block diagram made. ESP32-CAM has it's own voltage regulator that can support up to 15V. Can directly power this via 9V battery. 9V battery might not have enough capacity to power the master microcontroller for at least 2.5 hours depending on the current draw and the current active/sleep mode it's in.
+![image](https://github.com/jclee297/ECE445/assets/168769106/5b1b83f7-e3a7-4813-b9d7-4b39ea65a511)
+
