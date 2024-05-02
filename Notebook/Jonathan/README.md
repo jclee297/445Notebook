@@ -21,4 +21,4 @@ Likely also a 9V battery stepped down to 5V via LM317
 Up to 24V
 6. How does ESP32-CAM connect to the actual camera?
 Actual camera is OV2640, connection is built onto ESP32-CAM. Datasheet calls for 5V and 180mA
-https://www.handsontec.com/dataspecs/module/ESP32-CAM.pdf![image](https://github.com/jclee297/ECE445/assets/168769106/d78f335f-efdb-4ec3-a68f-10206f2fdf95)
+[link](https://www.handsontec.com/dataspecs/module/ESP32-CAM.pdf)
