@@ -90,15 +90,79 @@ Noted the surface mount components needed so far for the PCB.
 ## March 19
 
 PCB schematic finished. Had to find ESP32 footprint online and edit the vias to be the right size
+![image](https://github.com/jclee297/ECE445/assets/168769106/ecbc2f23-e2be-43c4-b2ec-bd0677663b6c)
+
 
 ## March 20
 
-Took the time to order all the parts needed for the first rendition and should still have enough for the second and possibly third, depending on how many PCBs we solder and test
+Took the time to order all the parts needed for the first rendition and should still have enough for the second and possibly third, depending on how many PCBs we solder and test.
+
+## March 26
+
+Designed the second rendition of the PCB. Not many changes except added more GPIO pins to use in case the few that I connected in the first rendition didn't work for whatever reason.
+![image](https://github.com/jclee297/ECE445/assets/168769106/a5cea1f4-b965-4c6a-a144-7a56399e2b28)
+
 
 ## April 5
 
-Finally got PCB. Worked on soldering the components, but realized I forgot to order BJTs and switches. 1uF capacitors were missing so had to reorder anyways. Tested the output of the voltage regulator and read 2.3V. Tried changing resistors with other values to get different voltage outputs, but after a couple hours realized that I originally had the wrong value because the resistors were in the wrong spots. 3.3K goes on the bottom and 2.2K goes on the top. While testing, learned that to read the right output, the voltage regulator needs to have a load resistor, otherwise the output is higher (~5V).
+Finally got the first rendition PCB. Worked on soldering the components, but realized I forgot to order BJTs and switches. 1uF capacitors were missing so had to reorder anyways. Tested the output of the voltage regulator and read 2.3V. Tried changing resistors with other values to get different voltage outputs, but after a couple hours realized that I originally had the wrong value because the resistors were in the wrong spots. 3.3K goes on the bottom and 2.2K goes on the top. While testing, learned that to read the right output, the voltage regulator needs to have a load resistor, otherwise the output is higher (~5V).
+
+## April 9
+
+Designed the third rendition of our PCB to be ordered by the 5th round of PCB ordering this upcoming Tuesday. Planning to make this the official PCB so made the design smaller. Hoping this works since haven't been able to fully test our first PCB yet due to late shipment of our first rendition. Same schematic as second rendition, but overall PCB is smaller to better fit on top of the bike lock. Height reduced from 84mm to 53mm. 
+
+*R8 airwire left intentionally since the strapping pin default value is fine and doesn't need to be changed*
+*R1 airwire left intentionally for the same reason*
+
+![image](https://github.com/jclee297/ECE445/assets/168769106/9b9c9bd2-9257-4cf4-9ed2-5689eab0a710)
+
 
 ## April 12
 
-Got the missing componenets and soldered it together. Also got the microcontroller so soldered the first PCB. Tested the voltage regulator output and realized 
+Got the missing components and soldered it together. Also got the microcontroller so soldered the first PCB completely. I misunderstood the circuit that automatically switches the strapping pin/chip enable buttons and thought those were the code data pins. RX and TX are how code actually gets transmitted, and I forgot to provide outputs from the PCB. Had to cut open a micro USB cable and solder wire from the D+ D- pins on the microcontroller to the microUSB.
+
+## April 13
+
+Faced with ESP32-S3-WROOM constantly conencting and disconnecting from the laptop. Lots of debugging. Pinpointed the cause as debouncing capacitors, with a different datasheet showing that the capacitors near the buttons controlling the strapping pin/chip enable pin should not be placed. After removing them, the code was able to be uploaded fine.
+
+## April 15
+
+Soldered the second rendition of our PCB (pcb with more GPIO pins). Voltage regulator worked fine, attached PCB and decided to continuity test to make sure soldering was good. As I was doing so, I forgot I had the battery connected from the voltage regulator testing, and ended up creating magical smoke... 1/3 ESP32s fried.
+
+## April 19
+
+Got the final rendition of our PCB. Soldered everything and tested the voltage regulator. Outputting 5V even with microcontroller connected. Testing was done by tapping the 9V battery to the terminals so hoping the microcontroller isn't fried. Code has been uploaded to our first rendition so this will be our backup in case this microcontroller is fried.
+
+Connected power supply pad on PCB to breadboard and applied output to a load resistor, but still recording 5V. Removed other resistors connecting to the voltage regulator in case the two output pins were connected internally, a possible cause for error.
+
+- Removed R2
+- Removed R8
+
+  Voltage goes from battery to screw terminal to voltage regulator, and output goes to 3.3K and 2.2K resistors to set output voltage to 3.3V, but still nothing is working. Going to have to proceed with first rendition.
+
+  Testing the alarm and MOSFET circuit via breadboard, but alarms are going off as soon as battery is connected. Going to scrap this idea since alarms are still pretty loud when powered by the microcontroller from the first rendition
+
+## April 20-22
+
+Confirmed using first rendition for final product. Enclosure boxes were ordered and started to put the PCB inside main enclosure box and ESP32-CAM inside its smaller enclosure box. Drilled a couple holes for the wire to connect through the bike chain with Natasha, hot glued it to the bike chain, and drilled some holes in the ESP32-CAM enclosure box for an LED and button to indicate battery life. Also drilled a hole for the camera to poke through, as well as one for the camera's LED flash.
+
+Design Issue 1: ESP32-CAM needed 5V and resistor ratio that was calculated was not providing proper output (5.5V output but needed it to be within 4.6V-5.25V). 
+
+Solution 1: Had to find old resistors from past lab kits. Used 10k and 3.3K + 380 ohm resistors to achieve 5.19V, acceptable to power the ESP32-CAM.
+
+Design Issue 2: Originally planned to have ESP32-CAM sit on a breadboard inside enclosure box to be more secure and stick wires into breadboard to power it, but corner screwholes in enclosure box impeded the area of the breadboard. Taped ESP32-CAM to the hole on the lid of enclosure box, and will have to power it without a breadboard to connect.
+
+Solution 2: Soldered wires to a surface mount LM317, connected those wires to male-male wire connectors, and had to have the output voltage adjusting resistors float inside the box. Very small box so I shortened the leads on the through-hole resistors and soldered them together, bending them in such a way to take up less space and minimize contact chance with other exposed wires, especially ones from the battery. Needed multiple connections to male-male wire connectors, but was lucky that I could fit a resistor lead and 1 wire inside, which took care of points of multiple contact.
+
+![image](https://github.com/jclee297/ECE445/assets/168769106/2beb3e7e-f7cc-4399-be14-099b0ebe7d7a)
+
+Shoved the wire loop inside the bike chain, hot glued it through the enclosure box for the main PCB, stuck the alarms to the inside of the box with Natasha.
+Natasha and Zhuoyuan responsible for the coding, but helped out with testing when things didn't work.
+
+Quick Issues:
+- Battery dying mid test or between tests
+- ESP32-CAM enclosure box wires falling apart
+
+## April 23
+
+  PCB fully soldered and enclosed, waterproofed with hot glue or foam on the grooves of the enclosure box lids, project fully functional (as long as battery doesn't disconnect/die), any issues at this point are coding issues that were resolved by the end of today and the 24th.
