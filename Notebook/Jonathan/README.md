@@ -73,7 +73,7 @@ According to ESP32-S3-WROOM datasheet, VIH has to be above 0.75 x VDD and VIL mu
 
 ![image](https://github.com/jclee297/ECE445/assets/168769106/19afc6d2-2c5f-4033-9e57-9f9fcf5b9f56)
 
-Depending on the opamp, both cases (switch open/closed) will cause a  GPIO pin to read as high. Need to change circuit/opamp so an open circuit actually causes a low GPIO pin input.
+Depending on the opamp, both cases (switch open/closed) will cause a  GPIO pin to read as high. Need to change circuit/opamp so an open circuit actually causes a low GPIO pin input. Tried using LTspice to get a general idea of what the circuit would look like and how it would work, but tests were inconclusive and couldn't experiment with the actual MOSFET chip I wanted to use.
 
 Open circuit detection can also be done without the opamp by using the microcontroller GPIO pins to act as a detector of voltage, and have the wire running through the bike chain powered by a constant voltage that the microcontroller can handle and read as high. Voltage regulator output of 3.3V should work?
 
