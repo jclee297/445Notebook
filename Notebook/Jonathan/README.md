@@ -112,6 +112,7 @@ Finally got the first rendition PCB. Worked on soldering the components, but rea
 Designed the third rendition of our PCB to be ordered by the 5th round of PCB ordering this upcoming Tuesday. Planning to make this the official PCB so made the design smaller. Hoping this works since haven't been able to fully test our first PCB yet due to late shipment of our first rendition. Same schematic as second rendition, but overall PCB is smaller to better fit on top of the bike lock. Height reduced from 84mm to 53mm. 
 
 *R8 airwire left intentionally since the strapping pin default value is fine and doesn't need to be changed*
+
 *R1 airwire left intentionally for the same reason*
 
 ![image](https://github.com/jclee297/ECE445/assets/168769106/9b9c9bd2-9257-4cf4-9ed2-5689eab0a710)
